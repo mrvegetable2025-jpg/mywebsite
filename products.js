@@ -65,11 +65,7 @@
     title.textContent = product.name || 'Product';
     info.appendChild(title);
 
-    const desc = document.createElement('p');
-    desc.className = 'product-description';
-    desc.textContent = product.description || 'Fresh product - premium quality.';
-    info.appendChild(desc);
-
+    
     // Weight selector
     const weightWrap = document.createElement('div');
     weightWrap.className = 'weight-selector';

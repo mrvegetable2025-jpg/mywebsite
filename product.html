@@ -4,183 +4,166 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Products – Mr. Vegetable & Fruits</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- Modernized violet–cyan style -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* === Page enhancements === */
+    :root {
+      --g1:#06b6d4; --g2:#7c3aed; --bg:#0f1724;
+      --glass:rgba(255,255,255,0.04);
+      --muted:rgba(255,255,255,0.75);
+      --shadow:0 8px 30px rgba(0,0,0,0.4);
+      --transition:300ms cubic-bezier(.2,.9,.25,1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body {
+      font-family:"Poppins",system-ui,sans-serif;
+      background:
+        radial-gradient(800px at 10% 10%,rgba(124,58,237,0.15),transparent),
+        radial-gradient(800px at 90% 90%,rgba(6,182,212,0.1),transparent),
+        var(--bg);
+      color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+      line-height:1.5;padding-bottom:60px;
+    }
+
+    header {
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 20px;margin:0 12px;
+      background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+      border-radius:14px;position:sticky;top:16px;z-index:1000;
+      backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(15,23,36,0.6);
+    }
+    .logo {display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:1.08rem;}
+    .hamburger{--size:46px;width:var(--size);height:var(--size);
+      border-radius:12px;display:none;align-items:center;justify-content:center;
+      background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);
+      cursor:pointer;transition:var(--transition);color:#fff;font-size:1.5rem;}
+    .nav-links{list-style:none;display:flex;gap:14px;align-items:center;}
+    .nav-links a{
+      color:var(--muted);text-decoration:none;font-weight:600;
+      padding:8px 12px;border-radius:10px;transition:var(--transition);
+    }
+    .nav-links a:hover,.nav-links a.active{
+      color:#fff;background:rgba(255,255,255,0.04);
+      transform:translateY(-3px);
+    }
+
+    /* Hero Banner */
     .hero-banner {
       text-align: center;
       padding: 60px 20px;
       border-radius: 24px;
-      background: linear-gradient(135deg, #2ECC71, #F1C40F);
+      background: linear-gradient(135deg, var(--g1), var(--g2));
       color: #fff;
-      margin: 20px auto 40px;
-      box-shadow: 0 10px 36px rgba(0,0,0,0.1);
-      animation: floatUp 0.8s ease-out;
+      margin: 30px auto 40px;
+      box-shadow: 0 10px 36px rgba(0,0,0,0.2);
+      max-width: 900px;
+      animation: fadeUp .8s ease-out;
     }
-    .hero-banner h1 { font-size: clamp(28px, 6vw, 44px); margin-bottom: 10px; }
-    .hero-banner p { opacity: .95; }
+    .hero-banner h1 {font-size: clamp(28px, 6vw, 44px); margin-bottom: 10px;}
+    .hero-banner p {opacity:.9;}
 
-    .search-section { animation: fadeIn 1s ease-out; }
+    /* Search & Filter */
     .search-card {
-      background: #fff;
+      background: rgba(255,255,255,0.05);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.05);
-      margin-bottom: 24px;
+      max-width:900px;margin:0 auto 24px;
+      backdrop-filter:blur(12px);
+      box-shadow: 0 8px 20px rgba(6,182,212,.15);
     }
-    .search-bar { display: flex; gap: 10px; align-items: center; }
+    .search-bar {display:flex;gap:10px;align-items:center;}
     .search-input {
-      flex: 1; padding: 12px 16px; border-radius: 999px;
-      border: 2px solid var(--ring); outline: none; transition: 0.2s;
+      flex:1;padding:12px 16px;border-radius:999px;
+      border:2px solid rgba(139,92,246,0.25);
+      background:rgba(255,255,255,0.1);color:#fff;
+      outline:none;transition:var(--transition);
     }
     .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(46,204,113,.15);
+      border-color: var(--g2);
+      box-shadow: 0 0 0 4px rgba(124,58,237,.15);
     }
     .search-clear {
-      background: var(--primary);
-      color: #fff; border: none; border-radius: 50%;
-      width: 36px; height: 36px; font-size: 1rem;
-      cursor: pointer; transition: 0.2s;
+      background:linear-gradient(135deg,var(--g1),var(--g2));
+      color:#fff;border:none;border-radius:50%;
+      width:36px;height:36px;cursor:pointer;transition:var(--transition);
     }
-    .search-clear:hover { transform: scale(1.05); }
-
+    .search-clear:hover{transform:scale(1.05);}
     .category-filters {
-      margin-top: 16px; display: flex; gap: 8px;
-      flex-wrap: wrap; justify-content: center;
+      margin-top:16px;display:flex;gap:8px;
+      flex-wrap:wrap;justify-content:center;
     }
     .filter-btn {
-      padding: 8px 16px; border-radius: 999px;
-      border: 2px solid var(--ring); background: #fff;
-      cursor: pointer; font-weight: 600; transition: 0.3s;
+      padding:8px 16px;border-radius:999px;
+      border:1px solid rgba(139,92,246,0.25);
+      background:rgba(255,255,255,0.06);
+      color:#EDE9FE;font-weight:600;cursor:pointer;transition:var(--transition);
     }
-    .filter-btn:hover { border-color: var(--primary2); }
     .filter-btn.active {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff; border-color: var(--primary);
-      transform: translateY(-2px);
+      background:linear-gradient(135deg,var(--g1),var(--g2));
+      color:#fff;border:none;transform:translateY(-2px);
     }
 
-    /* === Product Grid === */
+    /* Product Grid */
     .products-container {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(4, 1fr);
-      justify-items: center;
-      animation: fadeIn 1s ease-out;
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(3,1fr);
+      justify-items:center;
+      max-width:1200px;margin:40px auto;padding:0 20px;
     }
-    @media (max-width:1024px){ .products-container{grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:640px){
-      .products-container{
-        grid-template-columns:repeat(3,1fr);
-        gap:8px;
-      }
-    }
-
-    /* === Product Cards === */
     .product-card {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
-      display: flex; flex-direction: column;
-      text-align: center;
-      transition: 0.3s;
-      animation: floatUp 0.8s ease-out;
-      width: 100%;
-      max-width: 220px;
+      background:var(--glass);
+      border-radius:20px;
+      overflow:hidden;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow:var(--shadow);
+      transition:transform var(--transition);
+      width:100%;max-width:250px;
     }
-    .product-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 36px rgba(39,174,96,.25);
+    .product-card:hover{transform:translateY(-8px) scale(1.03);}
+    .product-card img{width:100%;height:160px;object-fit:cover;}
+    .product-name{font-weight:700;margin:10px 0;}
+    .price-display{font-weight:700;color:#7ee7fa;margin-bottom:10px;}
+    .product-card button{
+      margin-bottom:14px;padding:8px 16px;border:none;border-radius:10px;
+      background:linear-gradient(135deg,var(--g1),var(--g2));
+      color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);
     }
-    .product-card img {
-      width: 100%; height: 140px; object-fit: cover;
-      background: #f1f1f1;
-      transition: 0.3s ease-in-out;
-    }
-    .product-card:hover img { filter: brightness(1.05); }
+    .product-card button:hover{transform:translateY(-3px) scale(1.05);}
+    @media(max-width:640px){.products-container{grid-template-columns:repeat(3,1fr);} .product-card{max-width:100px;} .product-card img{height:90px;} .product-name{font-size:.75rem;} .price-display{font-size:.75rem;} .product-card button{font-size:.7rem;padding:6px 8px;}}
 
-    .product-card .info { padding: 10px; }
-    .product-card h3 {
-      margin: 8px 0 4px;
-      font-size: 1rem;
-      color: var(--primary2);
-    }
-    .product-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      min-height: 34px;
-    }
-    .product-card .price {
-      font-weight: 800;
-      color: var(--primary);
-      margin-top: 4px;
-    }
-    .product-card button {
-      margin: 10px auto 14px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .product-card button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    @media (max-width:640px){
-      .product-card{
-        max-width:110px;
-      }
-      .product-card img{height:80px;}
-      .product-card h3{font-size:0.8rem;}
-      .product-card p{display:none;}
-      .product-card .price{font-size:0.8rem;}
-      .product-card button{padding:6px 8px;font-size:0.75rem;}
-    }
+    footer{text-align:center;color:rgba(255,255,255,0.6);padding:30px 10px;margin-top:40px;}
+    .fab-whatsapp{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:14px;background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;font-size:22px;text-decoration:none;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 40px rgba(0,0,0,0.6);transition:var(--transition);}
+    .fab-whatsapp:hover{transform:translateY(-4px) scale(1.05);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    @media(max-width:1024px){.nav-links{display:none;}.hamburger{display:flex;}}
   </style>
 </head>
 
 <body>
-  <!-- ================= HEADER ================= -->
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
-
-      <button class="hamburger" aria-controls="nav-links"
-              aria-expanded="false" aria-label="Toggle menu">☰</button>
-
-      <ul id="nav-links" class="nav-links" aria-hidden="true">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="product.html" class="active">Products</a></li>
-        <li><a href="product.html?category=vegetable">Vegetables</a></li>
-        <li><a href="product.html?category=fruit">Fruits</a></li>
-        <li><a href="cart.html">Cart <span class="cart-count"></span></a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </nav>
+  <header>
+    <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html" class="active">Products</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <button class="hamburger" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
   </header>
 
-  <!-- ================= MAIN ================= -->
   <main>
-    <!-- Hero Banner -->
     <section class="hero-banner">
       <h1>Our Fresh Collection</h1>
       <p>Shop vibrant vegetables and juicy fruits</p>
     </section>
 
-    <!-- Search & Filter -->
-    <section class="search-section container">
+    <section class="search-section">
       <div class="search-card">
         <div class="search-bar">
-          <input id="search-input" class="search-input"
-                 type="search" placeholder="Search e.g. 'tomato' or 'apple'">
+          <input id="search-input" class="search-input" type="search" placeholder="Search e.g. 'tomato' or 'apple'">
           <button id="search-clear" class="search-clear">✕</button>
         </div>
         <div class="category-filters">
@@ -191,82 +174,43 @@
       </div>
     </section>
 
-    <!-- Products Grid -->
-    <section class="container">
-      <div id="products-container" class="products-container">
-        <!-- Dynamically injected products -->
-      </div>
+    <section>
+      <div id="products-container" class="products-container"></div>
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span class="year"></span> Mr. Vegetable & Fruits. All rights reserved.</p>
-    </div>
-  </footer>
+  <footer>© <span class="year"></span> Mr. Vegetable & Fruits. All rights reserved.</footer>
+  <a class="fab-whatsapp" href="https://wa.me/918056191339" target="_blank">💭</a>
 
-  <!-- Floating WhatsApp -->
-  <a class="fab-whatsapp" href="https://wa.me/918056191339" target="_blank" rel="noopener">🟢</a>
-
-  <!-- ================= SCRIPTS ================= -->
   <script src="google-sheets-loader.js"></script>
   <script src="products.js"></script>
   <script src="script.js"></script>
 
-  <!-- ================= PAGE LOGIC ================= -->
   <script>
-    (function () {
-      const burger = document.querySelector('.hamburger');
-      const nav = document.getElementById('nav-links');
-      const yearEl = document.querySelector('.year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    (function(){
+      const burger=document.querySelector('.hamburger');
+      const nav=document.querySelector('.nav-links');
+      const yearEl=document.querySelector('.year');
+      if(yearEl)yearEl.textContent=new Date().getFullYear();
 
-      if (burger && nav) {
-        burger.addEventListener('click', () => {
-          const open = burger.getAttribute('aria-expanded') === 'true';
-          burger.setAttribute('aria-expanded', String(!open));
-          nav.classList.toggle('active', !open);
-          nav.setAttribute('aria-hidden', String(open));
-          burger.textContent = !open ? '✖' : '☰';
+      if(burger && nav){
+        burger.addEventListener('click',()=>{
+          const open=burger.getAttribute('aria-expanded')==='true';
+          burger.setAttribute('aria-expanded',String(!open));
+          nav.classList.toggle('active',!open);
+          burger.textContent=!open?'✖':'☰';
         });
-        nav.addEventListener('click', e => {
-          if (e.target.tagName.toLowerCase() === 'a') {
+        nav.addEventListener('click',e=>{
+          if(e.target.tagName.toLowerCase()==='a'){
             nav.classList.remove('active');
-            burger.setAttribute('aria-expanded', 'false');
-            nav.setAttribute('aria-hidden', 'true');
-            burger.textContent = '☰';
+            burger.setAttribute('aria-expanded','false');
+            burger.textContent='☰';
           }
         });
       }
 
-      // Initialize product scripts
-      document.addEventListener('DOMContentLoaded', function () {
-        const clearBtn = document.getElementById('search-clear');
-        const searchInput = document.getElementById('search-input');
-
-        if (clearBtn && searchInput) {
-          clearBtn.addEventListener('click', () => {
-            searchInput.value = '';
-            if (typeof displayProducts === 'function') displayProducts();
-          });
-        }
-
-        const params = new URLSearchParams(location.search);
-        const cat = params.get('category');
-        if (cat) {
-          const btn = document.querySelector(`.filter-btn[data-category="${cat}"]`);
-          if (btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-          }
-        }
-
-        if (typeof initializeProducts === 'function') {
-          initializeProducts().then(() => {
-            if (typeof displayProducts === 'function') displayProducts();
-          });
-        }
+      document.addEventListener('productsLoaded',()=>{
+        if(typeof displayProducts==='function')displayProducts();
       });
     })();
   </script>

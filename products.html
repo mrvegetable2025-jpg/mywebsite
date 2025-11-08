@@ -10,162 +10,285 @@
 
   <style>
     /* === Page-specific layout tweaks === */
-    .hero-banner {
-      text-align: center;
-      padding: 60px 20px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #2ECC71, #F1C40F);
-      color: #fff;
-      margin: 20px auto 40px;
-      box-shadow: 0 10px 36px rgba(0,0,0,0.1);
-      animation: floatUp 0.8s ease-out;
-    }
-    .hero-banner h1 { font-size: clamp(28px, 6vw, 44px); margin-bottom: 10px; }
-    .hero-banner p { opacity: .95; }
+    /* ===========================================
+   🌈 Modern Gradient UI – Products Page
+   Matches index.html theme
+   Clean spacing, smooth animations, and 3-column grid
+=========================================== */
 
-    .search-section { animation: fadeIn 1s ease-out; }
-    .search-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.05);
-      margin-bottom: 24px;
-    }
-    .search-bar {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .search-input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 2px solid var(--ring);
-      outline: none;
-      transition: 0.2s;
-    }
-    .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(46,204,113,.15);
-    }
-    .search-clear {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .search-clear:hover { transform: scale(1.05); }
+:root {
+  --g1: #06b6d4;
+  --g2: #24065a;
+  --g3: #ff7a59;
+  --bg: #0f1724;
+  --glass: rgba(255, 255, 255, 0.04);
+  --muted: rgba(255, 255, 255, 0.75);
+  --shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+  --transition: 300ms cubic-bezier(0.2, 0.9, 0.25, 1);
+}
 
-    .category-filters {
-      margin-top: 16px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .filter-btn {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 2px solid var(--ring);
-      background: #fff;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-    .filter-btn:hover { border-color: var(--primary2); }
-    .filter-btn.active {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      border-color: var(--primary);
-      transform: translateY(-2px);
-    }
+/* ---------- HERO ---------- */
+.hero-banner {
+  text-align: center;
+  padding: 70px 20px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.15));
+  color: #fff;
+  margin: 50px auto 60px;
+  box-shadow: 0 20px 60px rgba(15, 23, 36, 0.6);
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.8s var(--transition) both;
+  max-width: 1000px;
+}
+.hero-banner h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.hero-banner p {
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
 
-    /* === Product grid === */
-    .products-container {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(4, 1fr);
-      justify-items: center;
-      animation: fadeIn 1.2s ease-out;
-    }
-    @media (max-width:1024px){ .products-container{grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:640px){
-      .products-container{
-        grid-template-columns:repeat(3,1fr);
-        gap:8px;
-      }
-    }
+/* ---------- SEARCH + FILTER SECTION ---------- */
+.search-section {
+  animation: fadeIn 1s ease-out;
+}
+.search-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 40px rgba(6,182,212,0.15);
+  backdrop-filter: blur(12px);
+  max-width: 900px;
+  margin: 0 auto 50px;
+}
 
-    .product-card {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      transition: 0.3s;
-      animation: floatUp 0.8s ease-out;
-      width: 100%;
-      max-width: 220px;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 36px rgba(39,174,96,.25);
-    }
-    .product-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      background: #f1f1f1;
-    }
-    .product-card .info { padding: 10px; }
-    .product-card h3 {
-      margin: 8px 0 4px;
-      font-size: 1rem;
-      color: var(--primary2);
-    }
-    .product-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      min-height: 34px;
-    }
-    .product-card .price {
-      font-weight: 800;
-      color: var(--primary);
-      margin-top: 4px;
-    }
-    .product-card button {
-      margin: 10px auto 14px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .product-card button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.search-input {
+  flex: 1;
+  max-width: 600px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(124,58,237,0.25);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  outline: none;
+  transition: var(--transition);
+}
+.search-input:focus {
+  border-color: var(--g2);
+  box-shadow: 0 0 0 4px rgba(124,58,237,0.1);
+}
+.search-clear {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.search-clear:hover {
+  transform: scale(1.07);
+}
 
-    @media (max-width:640px){
-      .product-card{
-        max-width:110px;
-      }
-      .product-card img{height:80px;}
-      .product-card h3{font-size:0.8rem;}
-      .product-card p{display:none;}
-      .product-card .price{font-size:0.8rem;}
-      .product-card button{padding:6px 8px;font-size:0.75rem;}
-    }
+.category-filters {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.filter-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(139,92,246,0.25);
+  background: rgba(255,255,255,0.06);
+  color: #EDE9FE;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.12);
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 20px rgba(124,58,237,0.25);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ---------- PRODUCTS GRID ---------- */
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  justify-items: center;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+  animation: fadeIn 1.2s ease-out;
+}
+
+/* ---------- PRODUCT CARD ---------- */
+.product-card {
+  background: var(--glass);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  width: 100%;
+  max-width: 300px;
+  min-height: 320px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.product-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 18px 50px rgba(6,182,212,0.25);
+}
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.product-card h3 {
+  margin: 14px 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.product-card p {
+  display: none; /* hidden as per your request */
+}
+.product-card .price {
+  font-weight: 700;
+  color: #7ee7fa;
+  margin: 6px 0 12px;
+  font-size: 1rem;
+}
+.product-card button {
+  margin: 0 auto 18px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.product-card button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 22px rgba(124,58,237,0.3);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .products-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .product-card {
+    max-width: 220px;
+    min-height: 260px;
+  }
+}
+@media (max-width: 640px) {
+  .products-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 10px;
+  }
+  .product-card {
+    max-width: 110px;
+    min-height: 180px;
+  }
+  .product-card img {
+    height: 90px;
+  }
+  .product-card h3 {
+    font-size: 0.8rem;
+  }
+  .product-card .price {
+    font-size: 0.75rem;
+  }
+  .product-card button {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(15px);}
+  to {opacity: 1; transform: none;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; transform:none !important; }
+}
+/* Modern Advert Card */
+.advert-card{
+  width: calc(100% - 48px);
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 38px 26px;
+  border-radius: 20px;
+  text-align: center;
+  background: linear-gradient(135deg,
+              rgba(124,58,237,0.18),
+              rgba(6,182,212,0.12));
+  box-shadow: 0 16px 55px rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+  animation: enterUp .5s var(--transition) both;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.advert-icon{
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg,var(--g1),var(--g2));
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 10px 30px rgba(124,58,237,0.22);
+}
+
+.advert-card h3{
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.advert-card p{
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  line-height: 1.65;
+}
+
   </style>
 </head>
 
@@ -189,10 +312,16 @@
 
   <!-- ================= MAIN ================= -->
   <main>
-    <section class="hero-banner">
-      <h1>Our Fresh Collection</h1>
-      <p>Shop vibrant vegetables, fruits, masala & snacks</p>
-    </section>
+    <section class="advert-card">
+  <div class="advert-icon">📸</div>
+  <h3>Freshness You Can Trust!</h3>
+  <p>
+    We upload <strong>real photos</strong> of today's fresh vegetables & fruits —
+    <br>no Google images, no fake visuals.
+    <br><strong>What you see is exactly what you get.</strong>
+    Shop confidently every day!
+  </p>
+</section>
 
     <section class="search-section container">
       <div class="search-card">

@@ -410,10 +410,9 @@ function createProductCard(product) {
     <img class="product-image" src="${product.image || LOCAL_PLACEHOLDER}" alt="${product.name}" onerror="this.onerror=null;this.src='${LOCAL_PLACEHOLDER}'">
     <div class="product-info">
       <h3 class="product-name">${product.name}</h3>
-      <p class="product-description">${product.description || ''}</p>
+     
 
       <div class="weight-selector">
-        <label>Select Weight</label>
         <div class="weight-options">
           <label><input type="radio" name="weight-${product.id}" value="250"> 250g</label>
           <label><input type="radio" name="weight-${product.id}" value="500"> 500g</label>
@@ -424,12 +423,7 @@ function createProductCard(product) {
 
       <div class="price-display" id="price-${product.id}">${formatPriceINR(defaultPrice)}</div>
 
-      <div class="price-breakdown">
-        <span>250g: ${formatPriceINR(p250)}</span>
-        <span>500g: ${formatPriceINR(p500)}</span>
-        <span>1kg: ${formatPriceINR(p1kg)}</span>
-        <span>2kg: ${formatPriceINR(p2kg)}</span>
-      </div>
+     
 
       <div class="product-card-actions">
         <button class="btn btn-primary btn-add-cart"${product.stock?.toString().toLowerCase() === 'out' ? ' disabled' : ''}>
