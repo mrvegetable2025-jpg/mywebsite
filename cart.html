@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛒 Cart – Mr. Vegetable & Fruits</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --primary: #2ecc71;
+      --primary2: #27ae60;
+      --accent: #f1c40f;
+      --bg: #f6fff9;
+      --text: #1b1b1b;
+      --muted: #69707a;
+      --radius: 22px;
+      --shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: "Poppins", system-ui, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo { font-weight: 800; color: #fff; text-decoration: none; font-size: 1.2rem; }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .mobile-menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1200;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.15);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 300px;
+        background: linear-gradient(135deg, var(--primary), var(--primary2));
+        flex-direction: column;
+        padding: 80px 30px;
+        gap: 20px;
+        box-shadow: -6px 0 25px rgba(0,0,0,0.15);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(50px);
+      }
+      .nav-links.active {
+        right: 0; opacity: 1; visibility: visible; transform: translateX(0);
+      }
+    }
+
+    main { max-width: 1100px; margin: 40px auto; padding: 0 16px; text-align: center; }
+    h1 {
+      font-size: 2rem;
+      background: linear-gradient(135deg,var(--primary2),var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .cart-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cart-items {
+      flex: 1;
+      min-width: 320px;
+      max-width: 650px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 14px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .cart-item:hover { transform: translateY(-3px); }
+
+    .cart-item img {
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: #f1f1f1;
+    }
+
+    .cart-info { text-align: left; flex: 1; margin-left: 16px; }
+    .cart-info h3 { color: var(--primary2); font-size: 1rem; margin-bottom: 4px; }
+    .cart-info p { color: var(--muted); font-size: 0.85rem; margin: 2px 0; }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
+
+    .quantity-control button {
+      background: none;
+      border: none;
+      color: var(--primary2);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .quantity-control button:hover { transform: scale(1.2); }
+
+    .cart-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .cart-actions .price { color: var(--primary); font-weight: 700; }
+    .remove-btn { background: none; border: none; color: crimson; font-size: 1.2rem; cursor: pointer; }
+
+    .empty-cart {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      width: 100%;
+      text-align: center;
+      display: none;
+    }
+
+    .empty-cart img { width: 180px; margin-bottom: 15px; opacity: 0.9; }
+
+    .cart-summary {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      min-width: 300px;
+      position: sticky;
+      top: 100px;
+      align-self: flex-start;
+    }
+
+    .cart-summary h2 { color: var(--primary2); margin-bottom: 16px; text-align: left; }
+    .summary-content { border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 16px; padding: 10px 0; }
+    .summary-row { display: flex; justify-content: space-between; margin: 6px 0; }
+    .summary-row.total { font-weight: 700; color: var(--primary2); font-size: 1.05rem; }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg,var(--primary),var(--accent));
+      color: #fff;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,204,113,0.3); }
+
+    .btn-secondary {
+      background: #f9f9f9;
+      color: var(--primary2);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover { background: var(--primary); color: #fff; }
+
+    @media (max-width: 768px) {
+      .cart-container { flex-direction: column; align-items: center; }
+      .cart-summary { width: 100%; max-width: 500px; position: static; margin-top: 20px; }
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      background: #fff;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+  
+  
+    
+
+<body>
+  <header>
+    <div id="nav-overlay" class="nav-overlay"></div>
+    <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="products.html?category=vegetable">Vegetables</a></li>
+      <li><a href="products.html?category=fruit">Fruits</a></li>
+      <li><a href="cart.html" class="active">Cart</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <h1>🛒 Shopping Cart</h1>
+
+    <div class="cart-container">
+      <div id="cart-empty" class="empty-cart">
+        <img src="images/empty-cart.png" alt="Empty cart" />
+        <p>Your cart is empty!</p>
+        <button onclick="window.location.href='products.html'" class="btn btn-primary">Continue Shopping</button>
+      </div>
+
+      <section id="cart-items" class="cart-items"></section>
+
+      <aside id="cart-summary" class="cart-summary" style="display:none;">
+        <h2>Order Summary</h2>
+        <div class="summary-content">
+          <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0.00</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="cart-shipping">₹0.00</span></div>
+          <div class="summary-row total"><span>Total</span><span id="cart-total">₹0.00</span></div>
+        </div>
+        <button id="checkout-btn" class="btn btn-primary" type="button">
+  Proceed to Checkout
+</button>
+
+
+
+        <button onclick="window.location.href='products.html'" class="btn btn-secondary">Continue Shopping</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer>© <span class="year"></span> Mr. Vegetable & Fruits. All rights reserved.</footer>
+
+
+  
+<!-- 
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Wait for products to load
+      let tries = 0;
+      while ((!window.products || window.products.length === 0) && tries < 25) {
+        await new Promise(r => setTimeout(r, 200));
+        tries++;
+      }
+
+      // Render cart using script.js
+      if (typeof renderCart === 'function') {
+        renderCart();
+      }
+
+      // Enable checkout button navigation
+      const checkoutBtn = document.getElementById("checkout-btn");
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener("click", () => {
+          const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+          if (!cart.length) {
+            alert("Your cart is empty. Please add items first!");
+            window.location.href = "products.html";
+            return;
+          }
+          const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+          localStorage.setItem("cartTotal", total.toFixed(2));
+          window.location.href = "checkout.html";
+        });
+      }
+    });
+  </script> -->
+ 
+  <script src="google-sheets-loader.js"></script>
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  <script>
+document.getElementById("checkout-btn")?.addEventListener("click", () => {
+  console.log("Button clicked directly!");
+  window.location.href = "checkout.html";
+});
+</script>
+
+
+</body>
+</html>

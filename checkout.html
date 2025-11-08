@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout – Mr. Vegetable & Fruits</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --primary: #2ecc71;
+      --primary2: #27ae60;
+      --accent: #f1c40f;
+      --bg: #f6fff9;
+      --text: #1b1b1b;
+      --muted: #69707a;
+      --radius: 20px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: "Poppins", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-weight: 800;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary2), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    .checkout-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .checkout-form,
+    .checkout-summary {
+      background: #fff;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 24px;
+      flex: 1;
+      min-width: 320px;
+      animation: fadeIn 1s ease;
+    }
+
+    .checkout-form h2,
+    .checkout-summary h2 {
+      color: var(--primary2);
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    input,
+    textarea {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(46,204,113,0.15);
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(46,204,113,0.25);
+    }
+
+    .btn-secondary {
+      background: #f9f9f9;
+      color: var(--primary2);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .checkout-items {
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .summary-row.total {
+      border-top: 1px solid #ddd;
+      margin-top: 10px;
+      padding-top: 8px;
+      font-weight: 700;
+      color: var(--primary2);
+      font-size: 1.05rem;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      background: #fff;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      z-index: 2000;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 400px;
+      padding: 25px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: popIn 0.35s ease;
+    }
+    @keyframes popIn {
+      from {transform: scale(0.85);opacity:0;}
+      to {transform: scale(1);opacity:1;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+    <a href="cart.html" style="color:#fff;text-decoration:none;">🛒 Cart</a>
+  </header>
+
+  <main>
+    <h1>🧾 Checkout</h1>
+
+    <div class="checkout-container">
+      <div class="checkout-form">
+        <h2>Customer Details</h2>
+        <form id="checkout-form">
+          <input type="text" id="customer-name" required placeholder="Full Name *" />
+          <input type="tel" id="customer-phone" required pattern="[0-9]{10,}" placeholder="Phone Number *" />
+          <textarea id="customer-address" required placeholder="Delivery Address *"></textarea>
+          <button type="submit" class="btn btn-primary">Place Order via WhatsApp</button>
+        </form>
+      </div>
+
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <div id="checkout-items" class="checkout-items">
+          <p style="color:gray;">Loading your order...</p>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="checkout-total">₹0.00</span>
+        </div>
+        <a href="cart.html" class="btn btn-secondary" style="margin-top: 10px;">Back to Cart</a>
+        <button id="clear-cart-btn" class="btn btn-secondary" style="margin-top: 10px; background:#ffefef; color:#d32f2f; border:2px solid #f8b5b5;">
+          Clear Order ❌
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © <span class="year"></span> Mr. Vegetable & Fruits. All rights reserved.
+  </footer>
+
+  <!-- Modal -->
+  <div id="clearModal" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🧺 Clear Order?</h2>
+      <p>Are you sure you want to clear all items from your order?</p>
+      <div>
+        <button id="confirmClear" class="btn btn-primary">Yes, Clear</button>
+        <button id="cancelClear" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="google-sheets-loader.js"></script>
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("✅ Checkout page initialized");
+
+    // Wait for products from Sheets
+    document.addEventListener("productsLoaded", () => {
+      console.log("📦 Products loaded — rendering summary...");
+      if (typeof renderCheckoutSummary === "function") renderCheckoutSummary();
+    });
+
+    // Safety fallback in case event not fired
+    setTimeout(() => {
+      if (typeof renderCheckoutSummary === "function") renderCheckoutSummary();
+    }, 3000);
+
+    // Modal logic
+    const modal = document.getElementById("clearModal");
+    const clearBtn = document.getElementById("clear-cart-btn");
+    const cancelBtn = document.getElementById("cancelClear");
+    const confirmBtn = document.getElementById("confirmClear");
+
+    clearBtn?.addEventListener("click", () => modal.classList.add("active"));
+    cancelBtn?.addEventListener("click", () => modal.classList.remove("active"));
+    confirmBtn?.addEventListener("click", () => {
+      localStorage.removeItem("cart");
+      modal.classList.remove("active");
+      alert("🧹 Order cleared!");
+      window.location.href = "products.html";
+    });
+  });
+  </script>
+</body>
+</html>

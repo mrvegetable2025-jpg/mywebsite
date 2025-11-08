@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mr. Vegetable & Fruits – Fresh and Fast</title>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
+
+<style>
+:root {
+  --primary:#2ecc71;
+  --primary2:#27ae60;
+  --accent:#f1c40f;
+  --bg:#f6fff9;
+  --text:#1b1b1b;
+  --muted:#69707a;
+  --radius:22px;
+  --shadow:0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* GLOBAL */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Poppins",system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  animation:fadeIn 0.8s ease-in-out;
+  line-height:1.5;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  padding:14px 20px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:var(--shadow);
+}
+.logo{
+  font-weight:800;
+  font-size:1.2rem;
+  text-decoration:none;
+  color:#fff;
+}
+.hamburger{
+  width:26px;
+  height:22px;
+  position:relative;
+  display:none;
+  flex-direction:column;
+  justify-content:space-between;
+  cursor:pointer;
+  z-index:1100;
+  background:none;
+  border:none;
+}
+.hamburger span{
+  height:3px;
+  width:100%;
+  background:#fff;
+  border-radius:2px;
+  transition:all .35s ease;
+}
+.hamburger.active span:nth-child(1){
+  transform:rotate(45deg) translateY(9px);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform:rotate(-45deg) translateY(-9px);
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:14px;
+}
+.nav-links a{
+  text-decoration:none;
+  color:#fff;
+  font-weight:500;
+  padding:6px 12px;
+  border-radius:10px;
+  transition:0.3s;
+}
+.nav-links a:hover,.nav-links a.active{
+  background:rgba(255,255,255,0.15);
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+  .hamburger{display:flex;}
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:75%;
+    height:100vh;
+    background:#fff;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:80px 30px;
+    gap:24px;
+    box-shadow:-6px 0 25px rgba(0,0,0,0.15);
+    transition:all 0.45s ease-in-out;
+    border-radius:16px 0 0 16px;
+    opacity:0;
+    transform:scale(0.95);
+  }
+  .nav-links.active{
+    right:0;
+    opacity:1;
+    transform:scale(1);
+  }
+  .nav-links li{width:100%;}
+  .nav-links a{
+    color:var(--text);
+    font-size:1.2rem;
+    font-weight:600;
+    display:block;
+    width:100%;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+  }
+  .nav-links a:hover{
+    color:var(--primary2);
+    background:linear-gradient(90deg,rgba(46,204,113,0.1),rgba(241,196,15,0.15));
+  }
+}
+
+/* BANNER */
+.banner{
+  text-align:center;
+  padding:10px;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(90deg,var(--accent),var(--primary));
+  animation:slideDown 0.6s ease;
+}
+@keyframes slideDown{
+  from{transform:translateY(-20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+/* HERO */
+.hero{
+  max-width:900px;
+  margin:60px auto 40px;
+  padding:80px 24px;
+  text-align:center;
+  color:#fff;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--primary2),var(--accent));
+  box-shadow:var(--shadow);
+  animation:floatUp 1s ease-out;
+}
+@keyframes floatUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.hero h1{
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:800;
+  margin-bottom:14px;
+  letter-spacing:0.5px;
+}
+.hero p{
+  font-size:1.05rem;
+  opacity:0.95;
+  margin-bottom:25px;
+}
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.hero .btn-primary{
+  background:#fff;
+  color:var(--primary);
+  font-weight:700;
+  border-radius:12px;
+  padding:12px 22px;
+  transition:0.3s ease;
+  box-shadow:0 6px 16px rgba(0,0,0,0.15);
+  animation:fadePop 1.2s ease;
+}
+.hero .btn-primary:hover{
+  transform:translateY(-3px) scale(1.05);
+}
+
+/* SINGLE CARD */
+.cards{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:60px auto;
+  flex-wrap:wrap;
+}
+.card-modern{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:50px 30px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  animation:fadePop 1.2s ease;
+  transition:all 0.4s ease;
+}
+@keyframes fadePop{
+  0%{opacity:0;transform:scale(0.9) translateY(20px);}
+  100%{opacity:1;transform:scale(1) translateY(0);}
+}
+.card-modern:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 16px 36px rgba(46,204,113,0.25);
+}
+.card-modern h2{
+  font-size:1.5rem;
+  font-weight:700;
+  margin-bottom:10px;
+  color:var(--primary2);
+}
+.card-modern p{
+  font-size:1rem;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.card-modern a{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  border-radius:12px;
+  padding:10px 20px;
+  transition:0.3s;
+}
+.card-modern a:hover{
+  transform:scale(1.08);
+  background:linear-gradient(135deg,var(--accent),var(--primary2));
+}
+
+/* CONTACT */
+.store-details{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:50px 24px;
+  max-width:900px;
+  margin:60px auto;
+  text-align:center;
+  box-shadow:var(--shadow);
+  animation:fadeIn 1.2s ease;
+}
+.store-name{
+  font-size:1.6rem;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.store-type{color:var(--muted);margin-bottom:12px;}
+.contact-item{margin:6px 0;font-size:0.95rem;}
+.contact-item a{color:var(--primary2);text-decoration:none;font-weight:500;}
+.contact-item a:hover{text-decoration:underline;}
+.store-actions{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:24px 0;
+  font-size:0.9rem;
+  background:#fff;
+  box-shadow:0 -4px 12px rgba(0,0,0,0.05);
+}
+
+/* WHATSAPP */
+.fab-whatsapp{
+  position:fixed;
+  bottom:22px;
+  right:22px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:1.4rem;
+  text-decoration:none;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition:transform 0.3s,box-shadow 0.3s;
+  animation:fadePop 1.4s ease;
+}
+.fab-whatsapp:hover{
+  transform:scale(1.1);
+  box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html">Cart</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</header>
+
+<div class="banner">🍎 Fresh veggies & fruits Photos are added daily! 🥦</div>
+
+<main>
+  <section class="hero">
+    <h1>MR.VEGETABLES & FRUITS</h1>
+    <p>Experience freshness delivered straight from farms to your doorstep.</p>
+   
+  </section>
+
+  <section class="cards">
+    <div class="card-modern">
+      <h2>🛒 Shop All Items</h2>
+      <p>Explore our curated range of crisp vegetables and juicy fruits.</p>
+      <a href="products.html">Start Shopping</a>
+    </div>
+  </section>
+
+  <section id="contact" class="store-details">
+    <h2 class="store-name">Mr. Vegetable & Fruits</h2>
+    <p class="store-type">Wholesale & Retail Market</p>
+    <p class="contact-item">📞 <a href="tel:+918056191339">+91 8056 191 339</a></p>
+    <p class="contact-item">✉️ <a href="mailto:mrvegetable2025@gmail.com">mrvegetable2025@gmail.com</a></p>
+    <p class="contact-item">📍 #1 Sekar Thottam, Udayampalayam Post, Coimbatore – 641028</p>
+    <div class="store-actions">
+      <a href="products.html" class="btn btn-secondary">Shop Now</a>
+      <a href="https://wa.me/918056191339" target="_blank" class="btn btn-primary">Order on WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Mr. Vegetable & Fruits. All rights reserved.</footer>
+
+<a href="https://wa.me/918056191339" target="_blank" class="fab-whatsapp">💭</a>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+const burger = document.getElementById("hamburger");
+const nav = document.getElementById("nav-links");
+burger.addEventListener("click",()=>{
+  burger.classList.toggle("active");
+  nav.classList.toggle("active");
+});
+</script>
+
+</body>
+</html>
