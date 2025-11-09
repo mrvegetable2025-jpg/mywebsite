@@ -114,47 +114,55 @@ function getToastRoot() {
   return root;
 }
 
-function showNotification(msg) {
-  const root = getToastRoot();
+function showNotification(msg, anchorEl) {
+  console.log('showNotification called with:', msg, anchorEl);
 
-  // remove any old toasts
-  root.querySelectorAll('.toast').forEach(t => t.remove());
+  // Remove old toast if any
+  const old = document.getElementById('toast');
+  if (old) old.remove();
 
   const n = document.createElement('div');
-  n.className = 'toast';
-  n.textContent = msg || 'Item added to cart!';
-
+  n.id = 'toast';
+  n.textContent = msg || 'Added to cart';
   Object.assign(n.style, {
+    position: 'absolute',
     background: 'linear-gradient(90deg,#2ecc71,#27ae60)',
     color: '#fff',
-    padding: '12px 20px',
-    borderRadius: '12px',
-    fontSize: '16px',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    fontSize: '14px',
     fontWeight: '500',
     textAlign: 'center',
-    boxShadow: '0 6px 18px rgba(0,0,0,0.25)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+    zIndex: '999999',
     opacity: '0',
-    transform: 'translateY(20px)',
-    transition: 'opacity 0.3s ease, transform 0.3s ease',
-    maxWidth: '90vw',
+    transition: 'opacity .25s ease, transform .25s ease',
+    pointerEvents: 'none'
   });
 
-  root.appendChild(n);
+  // Decide where to put it
+  if (anchorEl) {
+    const rect = anchorEl.getBoundingClientRect();
+    console.log('Anchor rect:', rect);
+    n.style.top = `${window.scrollY + rect.bottom + 8}px`;
+    n.style.left = `${window.scrollX + rect.left + rect.width / 2}px`;
+    n.style.transform = 'translateX(-50%)';
+  } else {
+    console.warn('No anchorEl passed, using fallback');
+    n.style.position = 'fixed';
+    n.style.top = '80%';
+    n.style.left = '25%';
+    n.style.transform = 'translateX(-50%)';
+  }
 
-  // force paint
+  document.body.appendChild(n);
+  console.log('Toast appended:', n);
+
   void n.offsetHeight;
+  n.style.opacity = '1';
 
-  // animate in
-  requestAnimationFrame(() => {
-    n.style.opacity = '1';
-    n.style.transform = 'translateY(0)';
-  });
-
-  // hide after 2s
-  clearTimeout(n.hideTimer);
-  n.hideTimer = setTimeout(() => {
+  setTimeout(() => {
     n.style.opacity = '0';
-    n.style.transform = 'translateY(20px)';
     setTimeout(() => n.remove(), 300);
   }, 2000);
 }

@@ -275,7 +275,7 @@ function addToCart(productId, weight = 1000, qty = 1) {
 
   persistCart(cart);
   renderCart(); // refresh cart UI if present
-  showNotification((prod?.name || 'Item') + ' added to cart!');
+  showNotification((prod?.name || 'Item') + ' added to cart!', event.currentTarget);
 }
 
 /**
