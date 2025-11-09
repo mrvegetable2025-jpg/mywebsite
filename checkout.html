@@ -3,266 +3,278 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Buy fresh vegetables, fruits, and masalas in Coimbatore. Daily stocks updated, home delivery available.">
+<meta name="keywords" content="Coimbatore vegetables, fruits, online grocery, fresh farm produce, masala, organic vegetables">
+
   <title>Checkout – Mr. Vegetable & Fruits</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-  :root {
-    --g1:#06b6d4; --g2:#7c3aed;
-    --accent:#ff7a59;
-    --bg:#0f1724;
-    --text:#ffffff;
-    --muted:rgba(255,255,255,0.75);
-    --glass:rgba(255,255,255,0.05);
-    --radius:20px;
-    --shadow:0 12px 40px rgba(0,0,0,0.55);
-    --transition:320ms cubic-bezier(.2,.9,.25,1);
-  }
+<style>
+:root {
+  /* 🌿 Emerald Green Modern UI Palette */
+  --g1:#10B981;   /* Emerald */
+  --g2:#16A34A;   /* Deep Leaf */
+  --accent:#22C55E; /* Lime Accent */
+  --bg:#0C1711;   /* Forest Dark Background */
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.75);
+  --glass:rgba(255,255,255,0.05);
+  --radius:20px;
+  --shadow:0 12px 40px rgba(0,0,0,0.55);
+  --transition:320ms cubic-bezier(.2,.9,.25,1);
+}
 
-  body {
-    font-family:"Poppins",system-ui,sans-serif;
-    background: radial-gradient(1000px at 10% 10%, rgba(124,58,237,0.15), transparent 10%),
-                radial-gradient(800px at 90% 90%, rgba(6,182,212,0.1), transparent 10%),
-                var(--bg);
-    color: var(--text);
-    margin: 0;
-    line-height: 1.6;
-    overflow-x:hidden;
-    animation: fadeIn 0.6s ease-out;
-  }
+body {
+  font-family:"Poppins",system-ui,sans-serif;
+  background: radial-gradient(1000px at 10% 10%, rgba(16,185,129,0.12), transparent 10%),
+              radial-gradient(800px at 90% 90%, rgba(22,163,74,0.1), transparent 10%),
+              var(--bg);
+  color: var(--text);
+  margin: 0;
+  line-height: 1.6;
+  overflow-x:hidden;
+  animation: fadeIn 0.6s ease-out;
+}
 
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(15px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(15px);}
+  to {opacity: 1; transform: translateY(0);}
+}
 
-  /* HEADER */
-  header {
-    background: linear-gradient(145deg, #5B21B6, #3B0B99, #4C1D95);
-    padding: 14px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    color: #fff;
-    box-shadow: 0 10px 28px rgba(80,0,180,0.35);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-  }
+/* HEADER */
+header {
+  background: linear-gradient(145deg, #14532D, #15803D, #166534);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
 
-  .logo {
-    font-weight: 800;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.2rem;
-    text-shadow: 0 0 10px rgba(255,255,255,0.35);
-  }
+.logo {
+  font-weight: 800;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
 
-  header a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-  }
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
 
-  header a:hover {
-    color: #C4B5FD;
-    text-shadow: 0 0 10px rgba(210,180,255,0.6);
-  }
+header a:hover {
+  color: #86EFAC;
+  text-shadow: 0 0 10px rgba(34,197,94,0.6);
+}
 
-  /* MAIN */
-  main {
-    max-width: 1100px;
-    margin: 50px auto;
-    padding: 0 16px;
-    text-align: center;
-  }
+/* MAIN */
+main {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 16px;
+  text-align: center;
+}
 
-  h1 {
-    font-size: 2.2rem;
-    background: linear-gradient(135deg, var(--g1), var(--g2), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(124,58,237,0.4);
-    margin-bottom: 2rem;
-  }
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, var(--g1), var(--g2), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(16,185,129,0.4);
+  margin-bottom: 2rem;
+}
 
-  .checkout-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    align-items: flex-start;
-  }
+/* CHECKOUT CONTAINER */
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-  .checkout-form,
-  .checkout-summary {
-    background: var(--glass);
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
-    padding: 26px;
-    flex: 1;
-    min-width: 320px;
-    backdrop-filter: blur(14px) saturate(1.2);
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: var(--transition);
-  }
+.checkout-form,
+.checkout-summary {
+  background: var(--glass);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 26px;
+  flex: 1;
+  min-width: 320px;
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: var(--transition);
+}
 
-  .checkout-form:hover,
-  .checkout-summary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 45px rgba(6,182,212,0.25);
-  }
+.checkout-form:hover,
+.checkout-summary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 45px rgba(16,185,129,0.25);
+}
 
-  .checkout-form h2,
-  .checkout-summary h2 {
-    color: #a78bfa;
-    font-size: 1.2rem;
-    margin-bottom: 16px;
-    text-align: left;
-  }
+.checkout-form h2,
+.checkout-summary h2 {
+  color: #86EFAC;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  text-align: left;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-  input,
-  textarea {
-    background: rgba(255,255,255,0.07);
-    border: 1.5px solid rgba(255,255,255,0.15);
-    border-radius: 14px;
-    padding: 12px 14px;
-    font-size: 0.95rem;
-    color: #fff;
-    font-family: inherit;
-    transition: 0.25s ease;
-  }
+input,
+textarea {
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: #fff;
+  font-family: inherit;
+  transition: 0.25s ease;
+}
 
-  input::placeholder,
-  textarea::placeholder { color: rgba(255,255,255,0.6); }
+input::placeholder,
+textarea::placeholder { color: rgba(255,255,255,0.6); }
 
-  input:focus,
-  textarea:focus {
-    border-color: var(--g1);
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(6,182,212,0.2);
-  }
+input:focus,
+textarea:focus {
+  border-color: var(--g1);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.2);
+}
 
-  textarea { resize: vertical; min-height: 90px; }
+textarea { resize: vertical; min-height: 90px; }
 
-  .btn {
-    border: none;
-    border-radius: 12px;
-    padding: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 1rem;
-    display: inline-block;
-    width: 100%;
-  }
+/* BUTTONS */
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+  display: inline-block;
+  width: 100%;
+}
 
-  .btn-primary {
-    background: linear-gradient(135deg, var(--g2), var(--g1));
-    color: #fff;
-    box-shadow: 0 0 20px rgba(124,58,237,0.4);
-  }
+.btn-primary {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+  box-shadow: 0 0 20px rgba(16,185,129,0.4);
+}
 
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(124,58,237,0.6);
-  }
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(16,185,129,0.6);
+}
 
-  .btn-secondary {
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.2);
-    color: #fff;
-  }
+.btn-secondary {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.2);
+  color: #fff;
+}
 
-  .btn-secondary:hover {
-    background: linear-gradient(135deg, var(--g1), var(--g2));
-    color: #fff;
-  }
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: #fff;
+}
 
-  .checkout-items {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 12px 0;
-    margin-bottom: 12px;
-    text-align: left;
-    color: var(--muted);
-  }
+/* CHECKOUT ITEMS */
+.checkout-items {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 0;
+  margin-bottom: 12px;
+  text-align: left;
+  color: var(--muted);
+}
 
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 6px 0;
-    color: #fff;
-  }
+/* SUMMARY */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  color: #fff;
+}
 
-  .summary-row.total {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    margin-top: 10px;
-    padding-top: 10px;
-    font-weight: 700;
-    color: #6ee7b7;
-    font-size: 1.05rem;
-  }
+.summary-row.total {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin-top: 10px;
+  padding-top: 10px;
+  font-weight: 700;
+  color: #4ADE80;
+  font-size: 1.05rem;
+}
 
-  footer {
-    margin-top: 60px;
-    text-align: center;
-    padding: 20px;
-    color: rgba(255,255,255,0.65);
-    background: rgba(255,255,255,0.05);
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
-  }
+/* FOOTER */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  padding: 20px;
+  color: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+}
 
-  /* MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.3s ease;
-    z-index: 2000;
-  }
-  .modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 2000;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 
-  .modal-box {
-    background: rgba(30,30,45,0.95);
-    border-radius: 20px;
-    max-width: 400px;
-    padding: 28px;
-    box-shadow: 0 12px 40px rgba(124,58,237,0.4);
-    text-align: center;
-    color: #fff;
-    backdrop-filter: blur(14px);
-    animation: popIn 0.35s ease;
-  }
+.modal-box {
+  background: rgba(12,23,17,0.95);
+  border-radius: 20px;
+  max-width: 400px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(16,185,129,0.4);
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(14px);
+  animation: popIn 0.35s ease;
+}
 
-  @keyframes popIn {
-    from {transform: scale(0.85);opacity:0;}
-    to {transform: scale(1);opacity:1;}
-  }
+@keyframes popIn {
+  from {transform: scale(0.85);opacity:0;}
+  to {transform: scale(1);opacity:1;}
+}
 </style>
+
 
 </head>
 
 <body>
   <header>
-    <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+   <a href="index.html" class="logo">🥬 Mr. Vegetable & Fruits</a>
+
     <a href="cart.html" style="color:#fff;text-decoration:none;">🛒 Cart</a>
   </header>
 
@@ -349,5 +361,7 @@
     });
   });
   </script>
+  
+  
 </body>
 </html>

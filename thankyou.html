@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✅ Order Confirmed – Mr. Vegetable & Fruits</title>
+<style>
+:root {
+  --g1:#06b6d4; --g2:#7c3aed; --accent:#2ecc71; --bg:#0f1724;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(800px at 10% 10%, rgba(124,58,237,0.2), transparent),
+              radial-gradient(800px at 90% 90%, rgba(6,182,212,0.2), transparent),
+              var(--bg);
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 40px 16px;
+  animation: fadeIn 1s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.container {
+  max-width: 520px;
+  margin: auto;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(18px) saturate(1.2);
+  border-radius: 24px;
+  padding: 30px 24px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  animation: floatUp 0.8s ease;
+}
+@keyframes floatUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--g1), var(--g2), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#delivery-status {
+  margin-top: 18px;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+#payment-status {
+  margin: 12px 0;
+  font-size: 1rem;
+  color: #6ee7b7;
+  font-weight: 700;
+}
+button {
+  margin-top: 24px;
+  background: linear-gradient(135deg, var(--g2), var(--g1));
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 80%;
+}
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, var(--accent), var(--g1));
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>✅ Order Confirmed!</h1>
+    <p>Thank you for ordering from <strong>Mr. Vegetable & Fruits 🌿</strong></p>
+    <p id="payment-status">Verifying payment...</p>
+    <p id="delivery-status">Calculating your delivery time...</p>
+    <button onclick="window.location.href='products.html'">🛒 Continue Shopping</button>
+  </div>
+
+<script>
+// 🧾 Check if payment was successful (from Razorpay + WhatsApp flow)
+const paymentData = JSON.parse(localStorage.getItem("paymentData"));
+const paymentStatus = document.getElementById("payment-status");
+
+if (paymentData && paymentData.status === "paid") {
+  paymentStatus.textContent = `💳 Payment Verified — ID: ${paymentData.id}`;
+} else {
+  paymentStatus.textContent = "⚠️ Payment not verified. If you haven’t paid, please retry checkout.";
+  document.getElementById("delivery-status").textContent = "⏳ Waiting for payment confirmation...";
+}
+
+// 🌍 Delivery Time Estimation using Google Maps Distance Matrix
+const SHOP_LAT = 10.998274;   // 🔹 Your shop latitude
+const SHOP_LNG = 76.982523;   // 🔹 Your shop longitude
+const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // 🗺 Replace with your Google Maps API key
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const userLat = pos.coords.latitude;
+    const userLng = pos.coords.longitude;
+
+    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${SHOP_LAT},${SHOP_LNG}&destinations=${userLat},${userLng}&key=${API_KEY}`
+    )}`;
+
+    try {
+      const res = await fetch(apiUrl);
+      const data = JSON.parse((await res.json()).contents);
+
+      const distance = data.rows[0].elements[0].distance.text;
+      const time = data.rows[0].elements[0].duration.text;
+      document.getElementById("delivery-status").textContent =
+        `🚚 Estimated Delivery: ${time} (${distance} away)`;
+    } catch (err) {
+      console.error("Distance fetch error", err);
+      document.getElementById("delivery-status").textContent =
+        "📦 Unable to fetch delivery time. Your order is being prepared!";
+    }
+  }, () => {
+    document.getElementById("delivery-status").textContent =
+      "⚠️ Location permission denied — we’ll deliver ASAP!";
+  });
+} else {
+  document.getElementById("delivery-status").textContent = "❌ Location not supported on this device.";
+}
+
+// ✅ Clear storage after showing confirmation
+setTimeout(() => {
+  localStorage.removeItem("cart");
+  localStorage.removeItem("paymentData");
+  localStorage.removeItem("orderPaid");
+}, 10000);
+</script>
+</body>
+</html>

@@ -1,13 +1,14 @@
 /* ===========================
-   home.css — homepage-only
+   🌿 home.css — Green Theme
    =========================== */
 
+/* BANNER */
 .banner {
   text-align: center;
   padding: 10px;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(90deg, var(--accent), var(--primary));
+  background: linear-gradient(90deg, #16A34A, #22C55E); /* Green gradient banner */
   animation: slideDown 0.6s ease;
 }
 @keyframes slideDown {
@@ -17,12 +18,12 @@
 
 /* HERO */
 .hero.container {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, #10B981, #16A34A);
   color: white;
   text-align: center;
   padding: 60px 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(39,174,96,0.25);
+  box-shadow: 0 10px 30px rgba(22,163,74,0.25);
   margin-top: 20px;
 }
 .hero.container h1 {
@@ -42,15 +43,14 @@
 }
 .hero .btn {
   background: #fff;
-  color: var(--primary);
+  color: #10B981;
 }
 .hero .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, #10B981, #16A34A);
   color: #fff;
 }
 
-/* HOME CARDS — unique classes */
-/* HOMEPAGE CARDS — modern UI */
+/* HOME CARDS — modern green UI */
 .home-cards.container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -61,8 +61,8 @@
 }
 
 .home-card {
-  display: block; /* ensures link wraps full card */
-  text-decoration: none; /* removes underline */
+  display: block;
+  text-decoration: none;
   background: #ffffff;
   border-radius: 18px;
   padding: 26px;
@@ -74,16 +74,16 @@
 
 .home-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 36px rgba(39,174,96,0.25);
+  box-shadow: 0 16px 36px rgba(16,185,129,0.25); /* emerald shadow */
 }
 
 .home-card h2 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--primary2);
+  color: #16A34A;
   margin-bottom: 8px;
   text-decoration: none;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, #10B981, #16A34A);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: 0.3s ease;
@@ -91,7 +91,7 @@
 
 .home-card p {
   font-size: 0.95rem;
-  color: var(--muted);
+  color: #4B5563; /* muted text */
   text-decoration: none;
   line-height: 1.5;
   letter-spacing: 0.2px;
@@ -101,12 +101,12 @@
   transform: scale(1.05);
 }
 
-/* subtle lift on hover */
+/* Subtle lift on hover */
 .home-card:hover p {
-  color: var(--primary2);
+  color: #16A34A;
 }
 
-/* smooth fade-in for all cards */
+/* Smooth fade-in for all cards */
 .home-card {
   opacity: 0;
   transform: translateY(20px);
@@ -120,7 +120,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* CONTACT */
 .store-details.container {
   background: #fff;
@@ -133,15 +132,15 @@
 .store-name {
   font-size: 1.6rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, #10B981, #16A34A);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 6px;
 }
-.store-type { color: var(--muted); margin-bottom: 10px; }
+.store-type { color: #6B7280; margin-bottom: 10px; }
 .contact-item { margin: 5px 0; font-size: 0.95rem; }
 .contact-item a {
-  color: var(--primary2);
+  color: #10B981;
   text-decoration: none;
   font-weight: 500;
 }
@@ -158,12 +157,12 @@
 .site-footer {
   text-align: center;
   padding: 28px 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e5e7eb;
   color: #333;
   background: #fff;
 }
 .site-footer span {
-  color: var(--primary2);
+  color: #10B981;
   font-weight: 700;
 }
 
