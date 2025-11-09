@@ -150,7 +150,7 @@ function showNotification(msg, anchorEl) {
   } else {
     console.warn('No anchorEl passed, using fallback');
     n.style.position = 'fixed';
-    n.style.top = '80%';
+    n.style.top = '60%';
     n.style.left = '25%';
     n.style.transform = 'translateX(-50%)';
   }
