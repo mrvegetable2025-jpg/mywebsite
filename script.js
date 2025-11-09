@@ -125,6 +125,19 @@ function addToCart(productId, weight = 1000, qty = 1) {
   if (typeof renderCart === 'function') renderCart();
   showNotification('Item added to cart ✅');
 }
+function showCartNotification(message) {
+  const notify = document.getElementById("cart-notification");
+  if (!notify) return;
+
+  notify.textContent = message;
+  notify.classList.add("show");
+
+  // Hide after 2 seconds
+  setTimeout(() => {
+    notify.classList.remove("show");
+  }, 2000);
+}
+
 
 function updateQuantity(productId, weight, newQty) {
   const cart = getCart();
