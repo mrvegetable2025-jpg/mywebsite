@@ -94,23 +94,72 @@ function priceFor(product, grams) {
 }
 
 // ---------- Notification ----------
-function showNotification(msg) {
-  let n = document.getElementById('toast');
-  if (!n) {
-    n = document.createElement('div');
-    n.id = 'toast';
-    Object.assign(n.style, {
-      position:'fixed', bottom:'16px', left:'50%', transform:'translateX(-50%)',
-      background:'rgba(34,34,34,.9)', color:'#fff', padding:'12px 16px',
-      borderRadius:'12px', boxShadow:'0 4px 16px rgba(0,0,0,.2)', zIndex:'9999',
-      transition:'opacity 0.3s ease'
+function getToastRoot() {
+  let root = document.getElementById('toast-root');
+  if (!root) {
+    root = document.createElement('div');
+    root.id = 'toast-root';
+    Object.assign(root.style, {
+      position: 'fixed',
+      inset: '0',                 // top:0; right:0; bottom:0; left:0
+      display: 'flex',
+      justifyContent: 'start',
+      alignItems: 'flex-end',     // bottom-center
+      pointerEvents: 'none',
+      zIndex: '999999',
+      paddingBottom: '80px',      // space above nav bar
     });
-    document.body.appendChild(n);
+    document.documentElement.appendChild(root);
   }
-  n.textContent = msg;
-  n.style.opacity = '1';
-  setTimeout(() => { n.style.opacity = '0'; }, 1500);
+  return root;
 }
+
+function showNotification(msg) {
+  const root = getToastRoot();
+
+  // remove any old toasts
+  root.querySelectorAll('.toast').forEach(t => t.remove());
+
+  const n = document.createElement('div');
+  n.className = 'toast';
+  n.textContent = msg || 'Item added to cart!';
+
+  Object.assign(n.style, {
+    background: 'linear-gradient(90deg,#2ecc71,#27ae60)',
+    color: '#fff',
+    padding: '12px 20px',
+    borderRadius: '12px',
+    fontSize: '16px',
+    fontWeight: '500',
+    textAlign: 'center',
+    boxShadow: '0 6px 18px rgba(0,0,0,0.25)',
+    opacity: '0',
+    transform: 'translateY(20px)',
+    transition: 'opacity 0.3s ease, transform 0.3s ease',
+    maxWidth: '90vw',
+  });
+
+  root.appendChild(n);
+
+  // force paint
+  void n.offsetHeight;
+
+  // animate in
+  requestAnimationFrame(() => {
+    n.style.opacity = '1';
+    n.style.transform = 'translateY(0)';
+  });
+
+  // hide after 2s
+  clearTimeout(n.hideTimer);
+  n.hideTimer = setTimeout(() => {
+    n.style.opacity = '0';
+    n.style.transform = 'translateY(20px)';
+    setTimeout(() => n.remove(), 300);
+  }, 2000);
+}
+
+
 
 // ---------- Cart API ----------
 function addToCart(productId, weight = 1000, qty = 1) {
@@ -123,7 +172,7 @@ function addToCart(productId, weight = 1000, qty = 1) {
 
   saveCart(cart);
   if (typeof renderCart === 'function') renderCart();
-  showNotification('Item added to cart ✅');
+  showNotification('item added to cart ✅');
 }
 function showCartNotification(message) {
   const notify = document.getElementById("cart-notification");

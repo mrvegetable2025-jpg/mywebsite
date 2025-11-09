@@ -635,12 +635,56 @@ function handleCheckout() {
    SMALL UI Helpers
    ========================= */
 function showNotification(msg) {
+  // Remove any existing notification first
+  const existing = document.querySelector('.toast-notification');
+  if (existing) existing.remove();
+
   const n = document.createElement('div');
   n.className = 'toast-notification';
-  n.style.cssText = 'position:fixed;top:80px;right:20px;background:linear-gradient(90deg,#2ecc71,#27ae60);color:#fff;padding:10px 14px;border-radius:8px;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,0.15);';
   n.textContent = msg;
+
+  // Create with minimal styles only (no right/top)
+  n.style.position = 'fixed';
+  n.style.background = 'linear-gradient(90deg,#2ecc71,#27ae60)';
+  n.style.color = '#fff';
+  n.style.padding = '12px 18px';
+  n.style.borderRadius = '10px';
+  n.style.fontSize = '16px';
+  n.style.fontWeight = '500';
+  n.style.textAlign = 'center';
+  n.style.zIndex = '9999';
+  n.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+  n.style.opacity = '0';
+  n.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  n.style.pointerEvents = 'none'; // doesn't block clicks
+
+  // ✅ Center position for all screens
+  n.style.top = '50%';
+  n.style.left = '50%';
+  n.style.transform = 'translate(-50%, -50%)';
+
+  // ✅ Mobile adjustment
+  if (window.innerWidth <= 600) {
+    n.style.width = '80%';
+    n.style.top = '60%';
+    n.style.fontSize = '14px';
+  }
+
+  // Append to body
   document.body.appendChild(n);
-  setTimeout(()=> { n.style.opacity = '0'; setTimeout(()=> n.remove(), 400); }, 3000);
+
+  // Smooth fade in
+  requestAnimationFrame(() => {
+    n.style.opacity = '1';
+    n.style.transform = 'translate(-50%, -50%) scale(1.05)';
+  });
+
+  // Hide after 2.5 seconds
+  setTimeout(() => {
+    n.style.opacity = '0';
+    n.style.transform = 'translate(-50%, -50%) scale(0.95)';
+    setTimeout(() => n.remove(), 300);
+  }, 2500);
 }
 
 /* =========================
