@@ -495,6 +495,41 @@ Clean alignment for cards, weights & buttons
 
 
  <!-- Floating Go to Cart Button -->
+<!-- IMAGE POPUP MODAL -->
+<!-- IMAGE POPUP -->
+<div id="imgModal" class="img-modal" style="display:none;">
+  <span class="img-close">&times;</span>
+  <img id="imgModalContent" class="img-modal-content">
+</div>
+
+<script>
+document.addEventListener("productsLoaded", () => {
+
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("imgModalContent");
+  const closeBtn = document.querySelector(".img-close");
+
+  document.querySelectorAll(".product-image").forEach(img => {
+    img.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  closeBtn.onclick = () => {
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+  };
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+  };
+});
+</script>
 
 </body>
 </html>

@@ -396,5 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (page === 'cart.html') renderCart();
   if (page === 'checkout.html') renderCheckoutSummary();
 });
+
 // === Floating Go To Cart Button ===
 // === Floating Go To Cart Button (always visible) ===

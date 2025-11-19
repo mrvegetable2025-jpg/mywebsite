@@ -3,6 +3,7 @@
 // Uses addToCart() from script.js
 
 (function () {
+
   // ---------- Helper Functions ----------
   function gToLabel(g) {
     if (g === 250) return '250g';
@@ -23,6 +24,7 @@
     }
     const base = Number(product.base_price_1kg) || 0;
     if (base) return Math.round((base / 1000) * grams);
+
     for (const k in product) {
       const v = product[k];
       if (typeof v === 'number' && v > 0) return v;
@@ -31,13 +33,43 @@
     return 0;
   }
 
-  // ---------- Product Card Builder ----------
+  // ---------- Image Popup (ADDED) ----------
+  function attachImagePopup() {
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("imgModalContent");
+    const closeBtn = document.querySelector(".img-close");
+
+    if (!modal || !modalImg || !closeBtn) return;
+
+    // Attach click for every product image
+    document.querySelectorAll(".product-image").forEach(img => {
+      img.style.cursor = "zoom-in";
+      img.onclick = () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+        document.body.style.overflow = "hidden";
+      };
+    });
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    };
+  }
+
+  // ---------- Product Card ----------
   function createCard(product) {
     const gramsList = [250, 500, 1000];
     const container = document.createElement('div');
     container.className = 'product-card';
 
-    // Out-of-stock badge
     if ((product.stock || '').toString().toLowerCase().includes('out')) {
       container.classList.add('out-of-stock');
       const badge = document.createElement('div');
@@ -46,7 +78,6 @@
       container.appendChild(badge);
     }
 
-    // Image
     const img = document.createElement('img');
     img.className = 'product-image';
     img.alt = product.name || 'Product';
@@ -54,19 +85,15 @@
     img.onerror = () => { img.src = 'images/placeholder.jpg'; };
     container.appendChild(img);
 
-    // Info
     const info = document.createElement('div');
     info.className = 'product-info';
     container.appendChild(info);
 
-    // Title + description
     const title = document.createElement('div');
     title.className = 'product-name';
     title.textContent = product.name || 'Product';
     info.appendChild(title);
 
-    
-    // Weight selector
     const weightWrap = document.createElement('div');
     weightWrap.className = 'weight-selector';
     const weightOpts = document.createElement('div');
@@ -74,18 +101,21 @@
     weightWrap.appendChild(weightOpts);
     info.appendChild(weightWrap);
 
-    let selected = 1000; // default 1 kg
+    let selected = 1000;
 
     gramsList.forEach(g => {
       const opt = document.createElement('label');
       opt.className = 'weight-option';
+
       const input = document.createElement('input');
       input.type = 'radio';
       input.name = `w-${product.id}`;
       input.value = String(g);
       if (g === selected) input.checked = true;
+
       const span = document.createElement('span');
       span.textContent = gToLabel(g);
+
       opt.appendChild(input);
       opt.appendChild(span);
       weightOpts.appendChild(opt);
@@ -100,7 +130,6 @@
       });
     });
 
-    // Price display
     const priceEl = document.createElement('div');
     priceEl.className = 'price-display';
     priceEl.textContent = priceFor(product, selected).toLocaleString('en-IN', {
@@ -110,7 +139,6 @@
     });
     info.appendChild(priceEl);
 
-    // Add to Cart button
     const btn = document.createElement('button');
     btn.className = 'btn btn-primary btn-add-cart';
     btn.textContent = 'Add to Cart';
@@ -144,6 +172,7 @@
     }
 
     container.innerHTML = '';
+
     if (!filtered.length) {
       container.innerHTML = `<div class="text-center" style="padding:2rem;"><p>No products found.</p></div>`;
       return;
@@ -156,6 +185,9 @@
     filtered.forEach(product => {
       grid.appendChild(createCard(product));
     });
+
+    // 🔥 ADDED — enable popup AFTER rendering
+    attachImagePopup();
   }
 
   // ---------- Wire Search + Filters ----------
@@ -185,12 +217,11 @@
     });
   }
 
-  // ---------- Initialize when products loaded ----------
+  // ---------- Initialize ----------
   document.addEventListener('productsLoaded', () => {
     wireSearchAndFilters();
     displayProducts();
   });
 
-  // Expose
   window.displayProducts = displayProducts;
 })();
